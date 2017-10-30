@@ -98,6 +98,7 @@ sys_info(void)
   procdump();
   proccount();
   syscount();
+  proccountpages();
 
   return i;
 }

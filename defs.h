@@ -114,6 +114,7 @@ void            pinit(void);
 void            procdump(void);
 void            proccount(void);
 void            syscount(void);
+void            proccountpages(void);
 void            scheduler(void) __attribute__((noreturn));
 void            sched(void);
 void            setproc(struct proc*);

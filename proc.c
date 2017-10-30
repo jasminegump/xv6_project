@@ -587,4 +587,21 @@ syscount(void)
 
 }
 
+void
+proccountpages(void)
+{
+  struct proc *p;
+  uint numpages;
 
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->state == RUNNING)
+    {
+      numpages = (p->sz)/PGSIZE;
+      if ((p->sz) % PGSIZE)
+      {
+        numpages = numpages + 1;
+      }
+      cprintf("Number of pages for procedure: %d %d\n", p->pid, numpages); 
+    }  
+  }
+}
