@@ -1,0 +1,1287 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"sys",
+				"syscallcount"
+			],
+			[
+				"merg",
+				"mergedArray"
+			],
+			[
+				"mer",
+				"mergedArray"
+			],
+			[
+				"A",
+				"A"
+			],
+			[
+				"le",
+				"leftArray"
+			],
+			[
+				"category",
+				"category_links"
+			],
+			[
+				"my",
+				"my_tree_two"
+			],
+			[
+				"Pa",
+				"PassengerId"
+			],
+			[
+				"mytr",
+				"my_tree_two_predict"
+			],
+			[
+				"repo",
+				"repo_dict"
+			],
+			[
+				"star",
+				"stars"
+			],
+			[
+				"re",
+				"repo_dicts"
+			],
+			[
+				"key",
+				"key"
+			],
+			[
+				"rep",
+				"repo_dict"
+			],
+			[
+				"response",
+				"response_dict"
+			],
+			[
+				"resp",
+				"response_dict"
+			],
+			[
+				"input",
+				"input_n"
+			],
+			[
+				"max",
+				"max_val"
+			],
+			[
+				"too",
+				"too_big_2"
+			],
+			[
+				"animal",
+				"animals_2"
+			],
+			[
+				"sor",
+				"sort_list_temp"
+			],
+			[
+				"so",
+				"sort_list_permanently"
+			],
+			[
+				"out",
+				"output_array"
+			],
+			[
+				"ma",
+				"maximum_index"
+			],
+			[
+				"output",
+				"output_array"
+			],
+			[
+				"for",
+				"forward_string"
+			],
+			[
+				"num",
+				"num_counts"
+			],
+			[
+				"sort",
+				"sorted_list"
+			],
+			[
+				"coun",
+				"counting_sort"
+			],
+			[
+				"get",
+				"getLeftChild"
+			],
+			[
+				"ll1",
+				"ll1_current_node"
+			],
+			[
+				"Link",
+				"linked_list"
+			],
+			[
+				"stac",
+				"stack1"
+			],
+			[
+				"in",
+				"insert"
+			],
+			[
+				"ne",
+				"next"
+			],
+			[
+				"curr",
+				"curr_node"
+			],
+			[
+				"previou",
+				"previous_node"
+			],
+			[
+				"cur",
+				"curr_node"
+			],
+			[
+				"c",
+				"current_node"
+			],
+			[
+				"new",
+				"new_node"
+			],
+			[
+				"all",
+				"all_chars_except_last"
+			],
+			[
+				"t",
+				"t"
+			],
+			[
+				"backg",
+				"background-color"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"inline",
+				"inline-block"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"di",
+				"direction_table"
+			],
+			[
+				"bo",
+				"board_dimension"
+			],
+			[
+				"size",
+				"sizeString"
+			],
+			[
+				"register",
+				"registerOpCode"
+			],
+			[
+				"regi",
+				"registerOpCode"
+			],
+			[
+				"read",
+				"readTemp"
+			],
+			[
+				"sizeA",
+				"sizeArray2"
+			],
+			[
+				"s",
+				"squareOfNum"
+			],
+			[
+				"is",
+				"isLeapYearDiv100"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"min",
+				"margin-bottom"
+			],
+			[
+				"padding",
+				"padding"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"background-",
+				"background-size"
+			],
+			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"text",
+				"text-transform"
+			],
+			[
+				"backgrou",
+				"background-repeat"
+			],
+			[
+				"border",
+				"border-color"
+			],
+			[
+				"text-",
+				"text-decoration"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"mart",
+				"margin-left"
+			],
+			[
+				"bac",
+				"background"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "proc.c",
+			"settings":
+			{
+				"buffer_size": 13158,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 105 files for \"scheduler\"\n\n/Users/jasminekim/Desktop/ip_xv6/defs.h:\n  116  void            syscount(void);\n  117  void            proccountpages(void);\n  118: void            scheduler(void) __attribute__((noreturn));\n  119  void            sched(void);\n  120  void            setproc(struct proc*);\n\n/Users/jasminekim/Desktop/ip_xv6/main.c:\n   55    idtinit();       // load idt register\n   56    xchg(&(mycpu()->started), 1); // tell startothers() we're up\n   57:   scheduler();     // start running processes\n   58  }\n   59  \n\n/Users/jasminekim/Desktop/ip_xv6/proc.c:\n  265    }\n  266  \n  267:   // Jump into the scheduler, never to return.\n  268    curproc->state = ZOMBIE;\n  269    sched();\n  ...\n  316  \n  317  //PAGEBREAK: 42\n  318: // Per-CPU process scheduler.\n  319: // Each CPU calls scheduler() after setting itself up.\n  320: // Scheduler never returns.  It loops, doing:\n  321  //  - choose a process to run\n  322  //  - swtch to start running that process\n  323  //  - eventually that process transfers control\n  324: //      via swtch back to the scheduler.\n  325  void\n  326: scheduler(void)\n  327  {\n  328    struct proc *p;\n  ...\n  347        p->state = RUNNING;\n  348  \n  349:       swtch(&(c->scheduler), p->context);\n  350        switchkvm();\n  351  \n  ...\n  359  }\n  360  \n  361: // Enter scheduler.  Must hold only ptable.lock\n  362  // and have changed proc->state. Saves and restores\n  363  // intena because intena is a property of this\n  ...\n  381      panic(\"sched interruptible\");\n  382    intena = mycpu()->intena;\n  383:   swtch(&p->context, mycpu()->scheduler);\n  384    mycpu()->intena = intena;\n  385  }\n  ...\n  395  }\n  396  \n  397: // A fork child's very first scheduling by scheduler()\n  398  // will swtch here.  \"Return\" to user space.\n  399  void\n  ...\n  401  {\n  402    static int first = 1;\n  403:   // Still holding ptable.lock from scheduler.\n  404    release(&ptable.lock);\n  405  \n\n/Users/jasminekim/Desktop/ip_xv6/proc.h:\n    2  struct cpu {\n    3    uchar apicid;                // Local APIC ID\n    4:   struct context *scheduler;   // swtch() here to enter scheduler\n    5    struct taskstate ts;         // Used by x86 to find stack for interrupt\n    6    struct segdesc gdt[NSEGS];   // x86 global descriptor table\n\n/Users/jasminekim/Desktop/ip_xv6/runoff.spec:\n   40  #     userinit growproc fork exit wait\n   41  # and another with\n   42: #     scheduler sched yield forkret sleep wakeup1 wakeup\n   43  right: proc.c   # VERY important\n   44  even: proc.c   # VERY important\n\n/Users/jasminekim/Desktop/ip_xv6/tags:\n  640  kmap\tvm.c\t/^} kmap[] = {$/;\"\tv\ttyperef:struct:kmap\tfile:\n  641  kmem\tkalloc.c\t/^} kmem;$/;\"\tv\ttyperef:struct:__anon7\n  642: kpgdir\tvm.c\t/^pde_t *kpgdir;  \\/\\/ for use in scheduler()$/;\"\tv\n  643  kstack\tproc.h\t/^  char *kstack;                \\/\\/ Bottom of kernel stack for this process$/;\"\tm\tstruct:proc\n  644  kvmalloc\tvm.c\t/^kvmalloc(void)$/;\"\tf\n  ...\n  911  sbrktest\tusertests.c\t/^sbrktest(void)$/;\"\tf\n  912  sched\tproc.c\t/^sched(void)$/;\"\tf\n  913: scheduler\tproc.c\t/^scheduler(void)$/;\"\tf\n  914: scheduler\tproc.h\t/^  struct context *scheduler;   \\/\\/ swtch() here to enter scheduler$/;\"\tm\tstruct:cpu\ttyperef:struct:cpu::context\n  915  second\tdate.h\t/^  uint second;$/;\"\tm\tstruct:rtcdate\n  916  segdesc\tmmu.h\t/^struct segdesc {$/;\"\ts\n\n/Users/jasminekim/Desktop/ip_xv6/TRICKS:\n   62  can get preempted and rescheduled on another cpu,\n   63  and then once it starts running, perhaps with \n   64: interrupts disabled (can happen since the scheduler\n   65  only enables interrupts once per scheduling loop,\n   66  not every time it schedules a process), it will \n   ..\n   71  to run with them enabled after the context switch too.\n   72  \n   73: In fact it would be safe if scheduler always set\n   74  \tc->intena = 1;\n   75  before calling swtch, and perhaps it should.\n\n/Users/jasminekim/Desktop/ip_xv6/vm.c:\n    9  \n   10  extern char data[];  // defined by kernel.ld\n   11: pde_t *kpgdir;  // for use in scheduler()\n   12  \n   13  // Set up CPU's kernel segment descriptors.\n   ..\n  137  \n  138  // Allocate one page table for the machine for the kernel address\n  139: // space for scheduler processes.\n  140  void\n  141  kvmalloc(void)\n\n<untitled 224>:\n    1  In folder /Users/jasminekim/Desktop/ip_xv6\n    2: Found 1 matches for functions calling this function: scheduler\n    3  --------------------------------------------------\n    4  \n    5  \n    6  main.c:\n    7:     57 [function: mpmain] scheduler();\n\n28 matches across 9 files\n\n\nSearching 105 files for \"time\"\n\n/Users/jasminekim/Desktop/ip_xv6/bio.c:\n   11  // * When done with the buffer, call brelse.\n   12  // * Do not use the buffer after calling brelse.\n   13: // * Only one process at a time can use a buffer,\n   14  //     so do not keep them longer than necessary.\n   15  //\n\n/Users/jasminekim/Desktop/ip_xv6/bootmain.c:\n   89    offset = (offset / SECTSIZE) + 1;\n   90  \n   91:   // If this is too slow, we could read lots of sectors at a time.\n   92    // We'd write more to memory than asked, but it doesn't matter --\n   93    // we load in increasing order.\n\n/Users/jasminekim/Desktop/ip_xv6/console.c:\n  254      if(c == C('D')){  // EOF\n  255        if(n < target){\n  256:         // Save ^D for next time, to make sure\n  257          // caller gets a 0-byte result.\n  258          input.r--;\n\n/Users/jasminekim/Desktop/ip_xv6/cscope.out:\n    <binary>\n\n/Users/jasminekim/Desktop/ip_xv6/defs.h:\n   74  \n   75  // lapic.c\n   76: void            cmostime(struct rtcdate *r);\n   77  int             lapicid(void);\n   78  extern volatile uint*    lapic;\n   ..\n  160  void            syscall(void);\n  161  \n  162: // timer.c\n  163: void            timerinit(void);\n  164  \n  165  // trap.c\n\n/Users/jasminekim/Desktop/ip_xv6/dot-bochsrc:\n   56  #display_library: macintosh\n   57  #display_library: nogui\n   58: #display_library: rfb, options=\"timeout=60\" # time to wait for client\n   59  #display_library: sdl, options=\"fullscreen\" # startup in fullscreen mode\n   60  #display_library: term\n   ..\n   95  #  (if supported by the gui).\n   96  #\n   97: #  IPS is used to calibrate many time-dependent events within the bochs \n   98  #  simulation.  For example, changing IPS affects the frequency of VGA\n   99: #  updates, the duration of time before a key starts to autorepeat, and\n  100  #  the measurement of BogoMips and other benchmarks.\n  101  #\n  ...\n  300  #  TO BE COMPLETED (see Greg explanation in feature request #536329)\n  301  #\n  302: #  TIME0:\n  303: #  Specifies the start (boot) time of the virtual machine. Use a time \n  304: #  value as returned by the time(2) system call. If no time0 value is \n  305: #  set or if time0 equal to 1 (special case) or if time0 equal 'local', \n  306: #  the simulation will be started at the current local host time.\n  307: #  If time0 equal to 2 (special case) or if time0 equal 'utc',\n  308: #  the simulation will be started at the current utc time.\n  309  #\n  310  # Syntax:\n  311: #  clock: sync=[none|slowdown|realtime|both], time0=[timeValue|local|utc]\n  312  #\n  313  # Example:\n  314: #   clock: sync=none,     time0=local       # Now (localtime)\n  315: #   clock: sync=slowdown, time0=315529200   # Tue Jan  1 00:00:00 1980\n  316: #   clock: sync=none,     time0=631148400   # Mon Jan  1 00:00:00 1990\n  317: #   clock: sync=realtime, time0=938581955   # Wed Sep 29 07:12:35 1999\n  318: #   clock: sync=realtime, time0=946681200   # Sat Jan  1 00:00:00 2000\n  319: #   clock: sync=none,     time0=1           # Now (localtime)\n  320: #   clock: sync=none,     time0=utc         # Now (utc/gmt)\n  321  # \n  322: # Default value are sync=none, time0=local\n  323  #=======================================================================\n  324: #clock: sync=none, time0=local\n  325  \n  326  \n  ...\n  354  # This handles the format of the string prepended to each log line.\n  355  # You may use those special tokens :\n  356: #   %t : 11 decimal digits timer tick\n  357  #   %i : 8 hexadecimal digits of cpu current eip (ignored in SMP configuration)\n  358  #   %e : 1 character event type ('i'nfo, 'd'ebug, 'p'anic, 'e'rror)\n  ...\n  459  #      2=SMF file output, including headers\n  460  #      3=output the midi data stream to the file (no midi headers and no\n  461: #        delta times, just command and data bytes)\n  462  # wave: This is the device/file where wave output is stored\n  463  # wavemode:\n  ...\n  474  #      4=all errors plus all port accesses\n  475  #      5=all errors and port accesses plus a lot of extra info\n  476: # dmatimer:\n  477  #      microseconds per second for a DMA cycle.  Make it smaller to fix\n  478  #      non-continuous sound.  750000 is usually a good value.  This needs a\n  ...\n  482  #=======================================================================\n  483  \n  484: #sb16: midimode=1, midi=/dev/midi00, wavemode=1, wave=/dev/dsp, loglevel=2, log=sb16.log, dmatimer=600000\n  485  \n  486  #=======================================================================\n  ...\n  502  #=======================================================================\n  503  # KEYBOARD_SERIAL_DELAY:\n  504: # Approximate time in microseconds that it takes one character to\n  505  # be transfered from the keyboard to controller over the serial path.\n  506  # Examples:\n  ...\n  511  #=======================================================================\n  512  # KEYBOARD_PASTE_DELAY:\n  513: # Approximate time in microseconds between attempts to paste\n  514: # characters to the keyboard controller. This leaves time for the\n  515  # guest os to deal with the flow of characters.  The ideal setting\n  516  # depends on how your operating system processes characters.  The\n  ...\n  533  # setting enabled to 0. Unless you have a particular reason for enabling\n  534  # the mouse by default, it is recommended that you leave it off.\n  535: # You can also toggle the mouse usage at runtime (control key + middle\n  536  # mouse button on X11, SDL, wxWidgets and Win32).\n  537  # With the mouse type option you can select the type of mouse to emulate.\n  ...\n  694  # This defines image file that can be loaded into the CMOS RAM at startup.\n  695  # The rtc_init parameter controls whether initialize the RTC with values stored\n  696: # in the image. By default the time0 argument given to the clock option is used.\n  697: # With 'rtc_init=image' the image is the source for the initial time.\n  698  #\n  699  # Example:\n  700  #   cmosimage: file=cmos.img, rtc_init=image\n  701  #=======================================================================\n  702: #cmosimage: file=cmos.img, rtc_init=time0\n  703  \n  704  #=======================================================================\n\n/Users/jasminekim/Desktop/ip_xv6/entryother.S:\n   12  # at an address in the low 2^16 bytes.\n   13  #\n   14: # Startothers (in main.c) sends the STARTUPs one at a time.\n   15  # It copies this code (start) at 0x7000.  It puts the address of\n   16  # a newly allocated per-core stack in start-4,the address of the\n\n/Users/jasminekim/Desktop/ip_xv6/file.c:\n  125      return pipewrite(f->pipe, addr, n);\n  126    if(f->type == FD_INODE){\n  127:     // write a few blocks at a time to avoid exceeding\n  128      // the maximum log transaction size, including\n  129      // i-node, indirect block, allocation blocks,\n\n/Users/jasminekim/Desktop/ip_xv6/forktest.c:\n   30  \n   31    if(n == N){\n   32:     printf(1, \"fork claimed to work N times!\\n\", N);\n   33      exit();\n   34    }\n\n/Users/jasminekim/Desktop/ip_xv6/lapic.c:\n   30    #define FIXED      0x00000000\n   31  #define ICRHI   (0x0310/4)   // Interrupt Command [63:32]\n   32: #define TIMER   (0x0320/4)   // Local Vector Table 0 (TIMER)\n   33    #define X1         0x0000000B   // divide counts by 1\n   34    #define PERIODIC   0x00020000   // Periodic\n   ..\n   38  #define ERROR   (0x0370/4)   // Local Vector Table 3 (ERROR)\n   39    #define MASKED     0x00010000   // Interrupt masked\n   40: #define TICR    (0x0380/4)   // Timer Initial Count\n   41: #define TCCR    (0x0390/4)   // Timer Current Count\n   42: #define TDCR    (0x03E0/4)   // Timer Divide Configuration\n   43  \n   44  volatile uint *lapic;  // Initialized in mp.c\n   ..\n   61    lapicw(SVR, ENABLE | (T_IRQ0 + IRQ_SPURIOUS));\n   62  \n   63:   // The timer repeatedly counts down at bus frequency\n   64    // from lapic[TICR] and then issues an interrupt.\n   65:   // If xv6 cared more about precise timekeeping,\n   66:   // TICR would be calibrated using an external time source.\n   67    lapicw(TDCR, X1);\n   68:   lapicw(TIMER, PERIODIC | (T_IRQ0 + IRQ_TIMER));\n   69    lapicw(TICR, 10000000);\n   70  \n   ..\n  191  \n  192  // qemu seems to use 24-hour GWT and the values are BCD encoded\n  193: void cmostime(struct rtcdate *r)\n  194  {\n  195    struct rtcdate t1, t2;\n  ...\n  200    bcd = (sb & (1 << 2)) == 0;\n  201  \n  202:   // make sure CMOS doesn't modify time while we read it\n  203    for(;;) {\n  204      fill_rtcdate(&t1);\n\n/Users/jasminekim/Desktop/ip_xv6/Makefile:\n  270  \tcd dist-test; $(MAKE) qemu\n  271  \n  272: # update this rule (change rev#) when it is time to\n  273  # make a new revision.\n  274  tar:\n\n/Users/jasminekim/Desktop/ip_xv6/Notes:\n   83  \n   84  device interrupts don't clear FL_IF\n   85:   so a recursive timer interrupt is possible\n   86  \n   87  what does inode->busy mean?\n\n/Users/jasminekim/Desktop/ip_xv6/pr.pl:\n    1  #!/usr/bin/perl\n    2  \n    3: use POSIX qw(strftime);\n    4  \n    5  if($ARGV[0] eq \"-h\"){\n    .\n   12  \n   13  $page = 0;\n   14: $now = strftime \"%b %e %H:%M %Y\", localtime;\n   15  \n   16  @lines = <>;\n\n/Users/jasminekim/Desktop/ip_xv6/spinlock.c:\n   20  // Acquire the lock.\n   21  // Loops (spins) until the lock is acquired.\n   22: // Holding a lock for a long time may cause\n   23: // other CPUs to waste time spinning to acquire it.\n   24  void\n   25  acquire(struct spinlock *lk)\n\n/Users/jasminekim/Desktop/ip_xv6/syscall.c:\n  103  extern int sys_wait(void);\n  104  extern int sys_write(void);\n  105: extern int sys_uptime(void);\n  106  extern int sys_info(void);\n  107  \n  ...\n  120  [SYS_sbrk]    sys_sbrk,\n  121  [SYS_sleep]   sys_sleep,\n  122: [SYS_uptime]  sys_uptime,\n  123  [SYS_open]    sys_open,\n  124  [SYS_write]   sys_write,\n\n/Users/jasminekim/Desktop/ip_xv6/syscall.h:\n   13  #define SYS_sbrk   12\n   14  #define SYS_sleep  13\n   15: #define SYS_uptime 14\n   16  #define SYS_open   15\n   17  #define SYS_write  16\n\n/Users/jasminekim/Desktop/ip_xv6/sysproc.c:\n   81  // since start.\n   82  int\n   83: sys_uptime(void)\n   84  {\n   85    uint xticks;\n\n/Users/jasminekim/Desktop/ip_xv6/tags:\n  126  IRQ_KBD\ttraps.h\t/^#define IRQ_KBD /;\"\td\n  127  IRQ_SPURIOUS\ttraps.h\t/^#define IRQ_SPURIOUS /;\"\td\n  128: IRQ_TIMER\ttraps.h\t/^#define IRQ_TIMER /;\"\td\n  129  KBDATAP\tkbd.h\t/^#define KBDATAP /;\"\td\n  130  KBSTATP\tkbd.h\t/^#define KBSTATP /;\"\td\n  ...\n  290  SYS_sleep\tsyscall.h\t/^#define SYS_sleep /;\"\td\n  291  SYS_unlink\tsyscall.h\t/^#define SYS_unlink /;\"\td\n  292: SYS_uptime\tsyscall.h\t/^#define SYS_uptime /;\"\td\n  293  SYS_wait\tsyscall.h\t/^#define SYS_wait /;\"\td\n  294  SYS_write\tsyscall.h\t/^#define SYS_write /;\"\td\n  ...\n  296  TDCR\tlapic.c\t/^#define TDCR /;\"\td\tfile:\n  297  TICR\tlapic.c\t/^#define TICR /;\"\td\tfile:\n  298: TIMER\tlapic.c\t/^#define TIMER /;\"\td\tfile:\n  299  TOOLPREFIX\tMakefile\t/^TOOLPREFIX := $(shell if i386-jos-elf-objdump -i 2>&1 | grep '^elf32-i386$$' >\\/dev\\/null 2>&1; \\\\$/;\"\tm\n  300  TPR\tlapic.c\t/^#define TPR /;\"\td\tfile:\n  ...\n  401  cmd\tsh.c\t/^struct cmd {$/;\"\ts\tfile:\n  402  cmos_read\tlapic.c\t/^static uint cmos_read(uint reg)$/;\"\tf\tfile:\n  403: cmostime\tlapic.c\t/^void cmostime(struct rtcdate *r)$/;\"\tf\n  404  commit\tlog.c\t/^commit()$/;\"\tf\tfile:\n  405  committing\tlog.c\t/^  int committing;  \\/\\/ in commit(), please wait.$/;\"\tm\tstruct:log\tfile:\n  ...\n  996  sys_sleep\tsysproc.c\t/^sys_sleep(void)$/;\"\tf\n  997  sys_unlink\tsysfile.c\t/^sys_unlink(void)$/;\"\tf\n  998: sys_uptime\tsysproc.c\t/^sys_uptime(void)$/;\"\tf\n  999  sys_wait\tsysproc.c\t/^sys_wait(void)$/;\"\tf\n 1000  sys_write\tsysfile.c\t/^sys_write(void)$/;\"\tf\n\n/Users/jasminekim/Desktop/ip_xv6/trap.c:\n   24    SETGATE(idt[T_SYSCALL], 1, SEG_KCODE<<3, vectors[T_SYSCALL], DPL_USER);\n   25  \n   26:   initlock(&tickslock, \"time\");\n   27  }\n   28  \n   ..\n   48  \n   49    switch(tf->trapno){\n   50:   case T_IRQ0 + IRQ_TIMER:\n   51      if(cpuid() == 0){\n   52        acquire(&tickslock);\n   ..\n  104    // If interrupts were on while locks held, would need to check nlock.\n  105    if(myproc() && myproc()->state == RUNNING &&\n  106:      tf->trapno == T_IRQ0+IRQ_TIMER)\n  107      yield();\n  108  \n\n/Users/jasminekim/Desktop/ip_xv6/traps.h:\n   30  #define T_IRQ0          32      // IRQ 0 corresponds to int T_IRQ\n   31  \n   32: #define IRQ_TIMER        0\n   33  #define IRQ_KBD          1\n   34  #define IRQ_COM1         4\n\n/Users/jasminekim/Desktop/ip_xv6/TRICKS:\n   18  \n   19  Why is this safe?  Because forkret1 is only called\n   20: the first time a process returns to user space, and\n   21  at that point, cp->tf is set to point to a trap frame\n   22  constructed at the top of cp's kernel stack.  So tf \n   ..\n   64  interrupts disabled (can happen since the scheduler\n   65  only enables interrupts once per scheduling loop,\n   66: not every time it schedules a process), it will \n   67  incorrectly record that interrupts *were* enabled.\n   68  This doesn't matter, because if it was safe to be\n\n/Users/jasminekim/Desktop/ip_xv6/user.h:\n   23  char* sbrk(int);\n   24  int sleep(int);\n   25: int uptime(void);\n   26  int info(int);\n   27  \n\n/Users/jasminekim/Desktop/ip_xv6/usertests.c:\n  514  \n  515  // four processes write different files at the same\n  516: // time, to test block allocation.\n  517  void\n  518  fourfiles(void)\n  ...\n 1393  \n 1394    if(n == 1000){\n 1395:     printf(1, \"fork claimed to work 1000 times!\\n\");\n 1396      exit();\n 1397    }\n\n/Users/jasminekim/Desktop/ip_xv6/usys.S:\n   29  SYSCALL(sbrk)\n   30  SYSCALL(sleep)\n   31: SYSCALL(uptime)\n   32  SYSCALL(info)\n   33  \n\n176 matches across 24 files\n",
+			"settings":
+			{
+				"buffer_size": 18023,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"contents": "In folder /Users/jasminekim/Desktop/ip_xv6\nFound 1 matches for functions calling this function: scheduler\n--------------------------------------------------\n\n\nmain.c:\n    57 [function: mpmain] scheduler();",
+			"settings":
+			{
+				"buffer_size": 205,
+				"line_ending": "Unix",
+				"name": "Cscope results - scheduler",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"file": "proc.h",
+			"settings":
+			{
+				"buffer_size": 2292,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				],
+				[
+					"Packages/User/Python3.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"CTags: Show Symbols (file)"
+			]
+		],
+		"width": 412.0
+	},
+	"console":
+	{
+		"height": 247.0,
+		"history":
+		[
+			"pac",
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"ls",
+			"pwd",
+			"ctags -R",
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/jasminekim/Desktop/ip_xv6"
+	],
+	"file_history":
+	[
+		"/Users/jasminekim/Desktop/ip_xv6/vm.c",
+		"/Users/jasminekim/Desktop/ip_xv6/exec.c",
+		"/Users/jasminekim/Desktop/ip_xv6/kalloc.c",
+		"/Users/jasminekim/Desktop/ip_xv6/proc.h",
+		"/Users/jasminekim/Desktop/ip_xv6/sysproc.c",
+		"/Users/jasminekim/Desktop/ip_xv6/syscall.c",
+		"/Users/jasminekim/Desktop/ip_xv6/mmu.h",
+		"/Users/jasminekim/Desktop/ip_xv6/defs.h",
+		"/Users/jasminekim/Desktop/ip_xv6/sh.c",
+		"/Users/jasminekim/Desktop/ip_xv6/init.c",
+		"/Users/jasminekim/Desktop/ip_xv6/syscall.h",
+		"/Users/jasminekim/Desktop/ip_xv6/proc.c",
+		"/Users/jasminekim/Desktop/ip_xv6/sysfile.c",
+		"/Users/jasminekim/Desktop/ip_xv6/trapasm.S",
+		"/Users/jasminekim/Desktop/xv6/proc.c",
+		"/Users/jasminekim/Desktop/xv6/proc.h",
+		"/Users/jasminekim/Desktop/xv6/sysproc.c",
+		"/Users/jasminekim/Desktop/xv6/sh.c",
+		"/Users/jasminekim/Desktop/xv6/jasmine_user_prog.c",
+		"/Users/jasminekim/Desktop/xv6/defs.h",
+		"/Users/jasminekim/Desktop/xv6/syscall.c",
+		"/Users/jasminekim/Desktop/xv6/trap.c",
+		"/Users/jasminekim/Desktop/xv6/user.h",
+		"/Users/jasminekim/Desktop/xv6/kernel.ld",
+		"/Users/jasminekim/Desktop/xv6/usertests.c",
+		"/Users/jasminekim/Desktop/xv6/usys.S",
+		"/Users/jasminekim/Desktop/xv6/initcode.S",
+		"/Users/jasminekim/Desktop/xv6/param.h",
+		"/Users/jasminekim/Desktop/xv6/ulib.c",
+		"/Users/jasminekim/Desktop/xv6/cat.c",
+		"/Users/jasminekim/Desktop/xv6/sysfile.c",
+		"/Users/jasminekim/Desktop/xv6/syscall.h",
+		"/Users/jasminekim/Desktop/xv6/swtch.S",
+		"/Users/jasminekim/Desktop/xv6/printf.c",
+		"/Users/jasminekim/Desktop/xv6/main.c",
+		"/Users/jasminekim/Desktop/xv6/vm.c",
+		"/Users/jasminekim/Desktop/xv6/types.h",
+		"/Users/jasminekim/Desktop/xv6/stat.h",
+		"/Users/jasminekim/Desktop/xv6/Makefile",
+		"/Users/jasminekim/Desktop/xv6/date.h",
+		"/Users/jasminekim/Desktop/xv6/zombie.c",
+		"/Users/jasminekim/Desktop/xv6/fs.c",
+		"/Users/jasminekim/Desktop/xv6/jasmine_user_proj.c",
+		"/Users/jasminekim/Desktop/xv6/.tags",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/xv6_sourcecode.sublime-keymap",
+		"/Users/jasminekim/Library/Application Support/Sublime Text 3/Packages/User/CTags.sublime-settings",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/vectors.pl",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/.tags",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/xv6_sourcecode.sublime-project",
+		"/Users/jasminekim/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/jasminekim/Library/Application Support/Sublime Text 3/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/jasminekim/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/asm.h",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/syscall.c",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/console.c",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/trapasm.S",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/toc.hdr",
+		"/Users/jasminekim/eclipse-workspace/wikicfp_crawler_pt1/src/wikicfp_crawler_pt1/WikiCFPScraper.txt",
+		"/Users/jasminekim/eclipse-workspace/wikicfp_crawler_pt1/src/WikiCFPScraper.java",
+		"/Users/jasminekim/Documents/school_work/cs_235/wikicfp_crawler/WikiCFPScraperTemplate copy.java",
+		"/Users/jasminekim/eclipse-workspace/wikicfp_crawler/src/wikicfp_crawler/WikiCFPScraperTemplate.java",
+		"/Users/jasminekim/Documents/school_work/cs_235/wikicfp_crawler/WikiCFPScraperTemplate.java",
+		"/Users/jasminekim/Downloads/dataset/review.json",
+		"/Users/jasminekim/Downloads/dataset/business.json",
+		"/Users/jasminekim/Downloads/dataset/user.json",
+		"/Users/jasminekim/Downloads/dataset/photos.json",
+		"/Users/jasminekim/Desktop/Research/Example_Code/interactiveMatrixProfileVer2.m",
+		"/Users/jasminekim/Desktop/Research/Example_Code/smooth.m",
+		"/Users/jasminekim/Desktop/jasminekimgithub/python_sandbox/sorting_algorithms.py",
+		"/Users/jasminekim/Desktop/Research/Example_Code/MP_first_test_penguin_sample.mat",
+		"/Users/jasminekim/Desktop/Temp/examplecode.java",
+		"/Users/jasminekim/Desktop/hyun1egithub/jekyll_site_repo/Gemfile",
+		"/Users/jasminekim/Desktop/hyun1egithub/jasminekim.github.io/index.html",
+		"/Users/jasminekim/Desktop/hyun1egithub/python_sandbox/chicago_best_web_scraper.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/python_sandbox/craft_beer_web_scraper.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/python_sandbox/web_scraper.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/findcomplement_FAST.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/python_sandbox/lc_561.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/kaggle_sandbox/titanic_decision.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/titanic_decision_tutorial.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/python_sandbox/fibo_recursive.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/github_language_repos.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/titanic_decision_trees.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/names/ss_names.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/wordcloud_generator.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/python_repos.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/starbucks_locations.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/titanic_script.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/kaggle_sandbox/titanic/titanic_decision_trees.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/kaggle_sandbox/titanic/titanic_script.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/language_repos.svg",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/github_api.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/goodreads_api.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/wordcloud.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/obamamccain_wordcloud.py",
+		"/Users/jasminekim/Desktop/pythondev/hyun1e.github.io/highs_lows.py",
+		"/Users/jasminekim/Desktop/pythondev/hyun1e.github.io/index.html",
+		"/Users/jasminekim/Desktop/pythondev/dev/scatter_squares.py",
+		"/Users/jasminekim/Desktop/pythondev/dev/mpl_squares.py",
+		"/Users/jasminekim/Desktop/pythondev/dev/fibo_recursive.py",
+		"/Users/jasminekim/Desktop/pythondev/hyun1e.github.io/Gemfile",
+		"/Users/jasminekim/Desktop/pythondev/dev/simple_line_graph.py",
+		"/Users/jasminekim/Pictures/Artwork/tongtongicon.svg",
+		"/Users/jasminekim/Desktop/python_work/fibo_recursive.py",
+		"/Users/jasminekim/Desktop/python_work/factorial_recursive.py",
+		"/Users/jasminekim/Desktop/python_work/bin_search_recursive.py",
+		"/Users/jasminekim/Desktop/python_work/max_resursive.py",
+		"/Users/jasminekim/Desktop/python_work/list_removing.py",
+		"/Users/jasminekim/Desktop/python_work/list_sorting.py",
+		"/Users/jasminekim/Desktop/python_work/list.py",
+		"/Users/jasminekim/Desktop/python_work/name.py",
+		"/Users/jasminekim/Desktop/python_work/hello_world.py",
+		"/Users/jasminekim/Library/Application Support/Sublime Text 3/Packages/User/Python3.sublime-build",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/binarytree.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/counting_sort.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/longest_palindrome.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/stackandqueue.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/3p4_myqueue.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/twosum.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/singlylinkedlist.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/add_two_numbers.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/2p1_removeduplicates_hashLL.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/2p5_sumlists.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/addwithoutoperators.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/removeduplicates_hash.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/findTheDifferenceFast.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/findTheDifference.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/findduplicates.py"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"time",
+			"scheduler",
+			"pstat",
+			"scheduler()",
+			"scheduler",
+			"%",
+			"PGROUNDUP",
+			"->sz",
+			"sz",
+			"page",
+			"p->sz",
+			"pgdir"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "proc.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13158,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7312,
+								7320
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4815.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18023,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										185,
+										194
+									],
+									[
+										478,
+										487
+									],
+									[
+										626,
+										635
+									],
+									[
+										769,
+										778
+									],
+									[
+										805,
+										814
+									],
+									[
+										852,
+										861
+									],
+									[
+										1073,
+										1082
+									],
+									[
+										1103,
+										1112
+									],
+									[
+										1224,
+										1233
+									],
+									[
+										1322,
+										1331
+									],
+									[
+										1593,
+										1602
+									],
+									[
+										1722,
+										1731
+									],
+									[
+										1887,
+										1896
+									],
+									[
+										2080,
+										2089
+									],
+									[
+										2118,
+										2127
+									],
+									[
+										2410,
+										2419
+									],
+									[
+										2757,
+										2766
+									],
+									[
+										3040,
+										3049
+									],
+									[
+										3059,
+										3068
+									],
+									[
+										3088,
+										3097
+									],
+									[
+										3125,
+										3134
+									],
+									[
+										3165,
+										3174
+									],
+									[
+										3527,
+										3536
+									],
+									[
+										3761,
+										3770
+									],
+									[
+										3994,
+										4003
+									],
+									[
+										4172,
+										4181
+									],
+									[
+										4354,
+										4363
+									],
+									[
+										4486,
+										4495
+									],
+									[
+										4742,
+										4746
+									],
+									[
+										4997,
+										5001
+									],
+									[
+										5264,
+										5268
+									],
+									[
+										5510,
+										5514
+									],
+									[
+										5674,
+										5678
+									],
+									[
+										5705,
+										5709
+									],
+									[
+										5899,
+										5903
+									],
+									[
+										5913,
+										5917
+									],
+									[
+										6139,
+										6143
+									],
+									[
+										6292,
+										6296
+									],
+									[
+										6506,
+										6510
+									],
+									[
+										6550,
+										6554
+									],
+									[
+										6585,
+										6589
+									],
+									[
+										6626,
+										6630
+									],
+									[
+										6653,
+										6657
+									],
+									[
+										6689,
+										6693
+									],
+									[
+										6727,
+										6731
+									],
+									[
+										6816,
+										6820
+									],
+									[
+										6835,
+										6839
+									],
+									[
+										6873,
+										6877
+									],
+									[
+										6952,
+										6956
+									],
+									[
+										7025,
+										7029
+									],
+									[
+										7037,
+										7041
+									],
+									[
+										7044,
+										7048
+									],
+									[
+										7125,
+										7129
+									],
+									[
+										7155,
+										7159
+									],
+									[
+										7194,
+										7198
+									],
+									[
+										7272,
+										7276
+									],
+									[
+										7344,
+										7348
+									],
+									[
+										7350,
+										7354
+									],
+									[
+										7422,
+										7426
+									],
+									[
+										7428,
+										7432
+									],
+									[
+										7506,
+										7510
+									],
+									[
+										7536,
+										7540
+									],
+									[
+										7575,
+										7579
+									],
+									[
+										7657,
+										7661
+									],
+									[
+										7775,
+										7779
+									],
+									[
+										7962,
+										7966
+									],
+									[
+										8294,
+										8298
+									],
+									[
+										8554,
+										8558
+									],
+									[
+										8917,
+										8921
+									],
+									[
+										9157,
+										9161
+									],
+									[
+										9443,
+										9447
+									],
+									[
+										9550,
+										9554
+									],
+									[
+										9919,
+										9923
+									],
+									[
+										10297,
+										10301
+									],
+									[
+										10418,
+										10422
+									],
+									[
+										10626,
+										10630
+									],
+									[
+										10884,
+										10888
+									],
+									[
+										11195,
+										11199
+									],
+									[
+										11454,
+										11458
+									],
+									[
+										11661,
+										11665
+									],
+									[
+										11707,
+										11711
+									],
+									[
+										12004,
+										12008
+									],
+									[
+										12063,
+										12067
+									],
+									[
+										12122,
+										12126
+									],
+									[
+										12296,
+										12300
+									],
+									[
+										12445,
+										12449
+									],
+									[
+										12513,
+										12517
+									],
+									[
+										12569,
+										12573
+									],
+									[
+										12601,
+										12605
+									],
+									[
+										12752,
+										12756
+									],
+									[
+										12910,
+										12914
+									],
+									[
+										13119,
+										13123
+									],
+									[
+										13285,
+										13289
+									],
+									[
+										13452,
+										13456
+									],
+									[
+										13546,
+										13550
+									],
+									[
+										13574,
+										13578
+									],
+									[
+										13770,
+										13774
+									],
+									[
+										13815,
+										13819
+									],
+									[
+										14030,
+										14034
+									],
+									[
+										14167,
+										14171
+									],
+									[
+										14180,
+										14184
+									],
+									[
+										14373,
+										14377
+									],
+									[
+										14531,
+										14535
+									],
+									[
+										14728,
+										14732
+									],
+									[
+										14756,
+										14760
+									],
+									[
+										14985,
+										14989
+									],
+									[
+										15016,
+										15020
+									],
+									[
+										15238,
+										15242
+									],
+									[
+										15262,
+										15266
+									],
+									[
+										15590,
+										15594
+									],
+									[
+										15614,
+										15618
+									],
+									[
+										15909,
+										15913
+									],
+									[
+										15932,
+										15936
+									],
+									[
+										16211,
+										16215
+									],
+									[
+										16306,
+										16310
+									],
+									[
+										16552,
+										16556
+									],
+									[
+										16730,
+										16734
+									],
+									[
+										16938,
+										16942
+									],
+									[
+										17240,
+										17244
+									],
+									[
+										17496,
+										17500
+									],
+									[
+										17662,
+										17666
+									],
+									[
+										17815,
+										17819
+									],
+									[
+										17959,
+										17963
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								4528,
+								4528
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 2,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ \t].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1994.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 205,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								200,
+								200
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CscopeSublime-master/Lookup Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "proc.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2292,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1377,
+								1377
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 289.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 253.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "ip_sv6.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"trapasm.S"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 148.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

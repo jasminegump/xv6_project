@@ -1,0 +1,620 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"sys",
+				"syscallcount"
+			],
+			[
+				"merg",
+				"mergedArray"
+			],
+			[
+				"mer",
+				"mergedArray"
+			],
+			[
+				"A",
+				"A"
+			],
+			[
+				"le",
+				"leftArray"
+			],
+			[
+				"category",
+				"category_links"
+			],
+			[
+				"my",
+				"my_tree_two"
+			],
+			[
+				"Pa",
+				"PassengerId"
+			],
+			[
+				"mytr",
+				"my_tree_two_predict"
+			],
+			[
+				"repo",
+				"repo_dict"
+			],
+			[
+				"star",
+				"stars"
+			],
+			[
+				"re",
+				"repo_dicts"
+			],
+			[
+				"key",
+				"key"
+			],
+			[
+				"rep",
+				"repo_dict"
+			],
+			[
+				"response",
+				"response_dict"
+			],
+			[
+				"resp",
+				"response_dict"
+			],
+			[
+				"input",
+				"input_n"
+			],
+			[
+				"max",
+				"max_val"
+			],
+			[
+				"too",
+				"too_big_2"
+			],
+			[
+				"animal",
+				"animals_2"
+			],
+			[
+				"sor",
+				"sort_list_temp"
+			],
+			[
+				"so",
+				"sort_list_permanently"
+			],
+			[
+				"out",
+				"output_array"
+			],
+			[
+				"ma",
+				"maximum_index"
+			],
+			[
+				"output",
+				"output_array"
+			],
+			[
+				"for",
+				"forward_string"
+			],
+			[
+				"num",
+				"num_counts"
+			],
+			[
+				"sort",
+				"sorted_list"
+			],
+			[
+				"coun",
+				"counting_sort"
+			],
+			[
+				"get",
+				"getLeftChild"
+			],
+			[
+				"ll1",
+				"ll1_current_node"
+			],
+			[
+				"Link",
+				"linked_list"
+			],
+			[
+				"stac",
+				"stack1"
+			],
+			[
+				"in",
+				"insert"
+			],
+			[
+				"ne",
+				"next"
+			],
+			[
+				"curr",
+				"curr_node"
+			],
+			[
+				"previou",
+				"previous_node"
+			],
+			[
+				"cur",
+				"curr_node"
+			],
+			[
+				"c",
+				"current_node"
+			],
+			[
+				"new",
+				"new_node"
+			],
+			[
+				"all",
+				"all_chars_except_last"
+			],
+			[
+				"t",
+				"t"
+			],
+			[
+				"backg",
+				"background-color"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"inline",
+				"inline-block"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"di",
+				"direction_table"
+			],
+			[
+				"bo",
+				"board_dimension"
+			],
+			[
+				"size",
+				"sizeString"
+			],
+			[
+				"register",
+				"registerOpCode"
+			],
+			[
+				"regi",
+				"registerOpCode"
+			],
+			[
+				"read",
+				"readTemp"
+			],
+			[
+				"sizeA",
+				"sizeArray2"
+			],
+			[
+				"s",
+				"squareOfNum"
+			],
+			[
+				"is",
+				"isLeapYearDiv100"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"min",
+				"margin-bottom"
+			],
+			[
+				"padding",
+				"padding"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"background-",
+				"background-size"
+			],
+			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"text",
+				"text-transform"
+			],
+			[
+				"backgrou",
+				"background-repeat"
+			],
+			[
+				"border",
+				"border-color"
+			],
+			[
+				"text-",
+				"text-decoration"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"mart",
+				"margin-left"
+			],
+			[
+				"bac",
+				"background"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				],
+				[
+					"Packages/User/Python3.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "Package Control: ",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"CTags: Show Symbols (file)"
+			]
+		],
+		"width": 412.0
+	},
+	"console":
+	{
+		"height": 247.0,
+		"history":
+		[
+			"pac",
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"ls",
+			"pwd",
+			"ctags -R",
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/jasminekim/Desktop/ip_xv6"
+	],
+	"file_history":
+	[
+		"/Users/jasminekim/Desktop/xv6/proc.c",
+		"/Users/jasminekim/Desktop/xv6/proc.h",
+		"/Users/jasminekim/Desktop/xv6/sysproc.c",
+		"/Users/jasminekim/Desktop/xv6/sh.c",
+		"/Users/jasminekim/Desktop/xv6/jasmine_user_prog.c",
+		"/Users/jasminekim/Desktop/xv6/defs.h",
+		"/Users/jasminekim/Desktop/xv6/syscall.c",
+		"/Users/jasminekim/Desktop/xv6/trap.c",
+		"/Users/jasminekim/Desktop/xv6/user.h",
+		"/Users/jasminekim/Desktop/xv6/kernel.ld",
+		"/Users/jasminekim/Desktop/xv6/usertests.c",
+		"/Users/jasminekim/Desktop/xv6/usys.S",
+		"/Users/jasminekim/Desktop/xv6/initcode.S",
+		"/Users/jasminekim/Desktop/xv6/param.h",
+		"/Users/jasminekim/Desktop/xv6/ulib.c",
+		"/Users/jasminekim/Desktop/xv6/cat.c",
+		"/Users/jasminekim/Desktop/xv6/sysfile.c",
+		"/Users/jasminekim/Desktop/xv6/syscall.h",
+		"/Users/jasminekim/Desktop/xv6/swtch.S",
+		"/Users/jasminekim/Desktop/xv6/printf.c",
+		"/Users/jasminekim/Desktop/xv6/main.c",
+		"/Users/jasminekim/Desktop/xv6/vm.c",
+		"/Users/jasminekim/Desktop/xv6/types.h",
+		"/Users/jasminekim/Desktop/xv6/stat.h",
+		"/Users/jasminekim/Desktop/xv6/Makefile",
+		"/Users/jasminekim/Desktop/xv6/date.h",
+		"/Users/jasminekim/Desktop/xv6/zombie.c",
+		"/Users/jasminekim/Desktop/xv6/fs.c",
+		"/Users/jasminekim/Desktop/xv6/jasmine_user_proj.c",
+		"/Users/jasminekim/Desktop/xv6/.tags",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/xv6_sourcecode.sublime-keymap",
+		"/Users/jasminekim/Library/Application Support/Sublime Text 3/Packages/User/CTags.sublime-settings",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/vectors.pl",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/.tags",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/xv6_sourcecode.sublime-project",
+		"/Users/jasminekim/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/jasminekim/Library/Application Support/Sublime Text 3/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/jasminekim/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/asm.h",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/syscall.c",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/console.c",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/trapasm.S",
+		"/Users/jasminekim/Documents/school_work/cs_202/proj1/xv6_sourcecode/toc.hdr",
+		"/Users/jasminekim/eclipse-workspace/wikicfp_crawler_pt1/src/wikicfp_crawler_pt1/WikiCFPScraper.txt",
+		"/Users/jasminekim/eclipse-workspace/wikicfp_crawler_pt1/src/WikiCFPScraper.java",
+		"/Users/jasminekim/Documents/school_work/cs_235/wikicfp_crawler/WikiCFPScraperTemplate copy.java",
+		"/Users/jasminekim/eclipse-workspace/wikicfp_crawler/src/wikicfp_crawler/WikiCFPScraperTemplate.java",
+		"/Users/jasminekim/Documents/school_work/cs_235/wikicfp_crawler/WikiCFPScraperTemplate.java",
+		"/Users/jasminekim/Downloads/dataset/review.json",
+		"/Users/jasminekim/Downloads/dataset/business.json",
+		"/Users/jasminekim/Downloads/dataset/user.json",
+		"/Users/jasminekim/Downloads/dataset/photos.json",
+		"/Users/jasminekim/Desktop/Research/Example_Code/interactiveMatrixProfileVer2.m",
+		"/Users/jasminekim/Desktop/Research/Example_Code/smooth.m",
+		"/Users/jasminekim/Desktop/jasminekimgithub/python_sandbox/sorting_algorithms.py",
+		"/Users/jasminekim/Desktop/Research/Example_Code/MP_first_test_penguin_sample.mat",
+		"/Users/jasminekim/Desktop/Temp/examplecode.java",
+		"/Users/jasminekim/Desktop/hyun1egithub/jekyll_site_repo/Gemfile",
+		"/Users/jasminekim/Desktop/hyun1egithub/jasminekim.github.io/index.html",
+		"/Users/jasminekim/Desktop/hyun1egithub/python_sandbox/chicago_best_web_scraper.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/python_sandbox/craft_beer_web_scraper.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/python_sandbox/web_scraper.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/findcomplement_FAST.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/python_sandbox/lc_561.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/kaggle_sandbox/titanic_decision.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/titanic_decision_tutorial.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/python_sandbox/fibo_recursive.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/github_language_repos.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/titanic_decision_trees.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/names/ss_names.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/wordcloud_generator.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/python_repos.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/starbucks_locations.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/titanic_script.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/kaggle_sandbox/titanic/titanic_decision_trees.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/kaggle_sandbox/titanic/titanic_script.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/language_repos.svg",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/github_api.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/goodreads_api.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/wordcloud.py",
+		"/Users/jasminekim/Desktop/hyun1egithub/data_viz/obamamccain_wordcloud.py",
+		"/Users/jasminekim/Desktop/pythondev/hyun1e.github.io/highs_lows.py",
+		"/Users/jasminekim/Desktop/pythondev/hyun1e.github.io/index.html",
+		"/Users/jasminekim/Desktop/pythondev/dev/scatter_squares.py",
+		"/Users/jasminekim/Desktop/pythondev/dev/mpl_squares.py",
+		"/Users/jasminekim/Desktop/pythondev/dev/fibo_recursive.py",
+		"/Users/jasminekim/Desktop/pythondev/hyun1e.github.io/Gemfile",
+		"/Users/jasminekim/Desktop/pythondev/dev/simple_line_graph.py",
+		"/Users/jasminekim/Pictures/Artwork/tongtongicon.svg",
+		"/Users/jasminekim/Desktop/python_work/fibo_recursive.py",
+		"/Users/jasminekim/Desktop/python_work/factorial_recursive.py",
+		"/Users/jasminekim/Desktop/python_work/bin_search_recursive.py",
+		"/Users/jasminekim/Desktop/python_work/max_resursive.py",
+		"/Users/jasminekim/Desktop/python_work/list_removing.py",
+		"/Users/jasminekim/Desktop/python_work/list_sorting.py",
+		"/Users/jasminekim/Desktop/python_work/list.py",
+		"/Users/jasminekim/Desktop/python_work/name.py",
+		"/Users/jasminekim/Desktop/python_work/hello_world.py",
+		"/Users/jasminekim/Library/Application Support/Sublime Text 3/Packages/User/Python3.sublime-build",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/binarytree.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/counting_sort.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/longest_palindrome.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/stackandqueue.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/3p4_myqueue.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/twosum.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/singlylinkedlist.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/add_two_numbers.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/2p1_removeduplicates_hashLL.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/2p5_sumlists.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/addwithoutoperators.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/removeduplicates_hash.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/findTheDifferenceFast.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/findTheDifference.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/findduplicates.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/stringPermutation.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/reversestring.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/fizzbuzz.py",
+		"/Users/jasminekim/Desktop/PythonCode/GitHub/twosum.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/hammingdistance.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/keyboardrow.py",
+		"/Users/jasminekim/Desktop/PythonCode/python-practice/findcomplement_SLOW.py",
+		"/Users/jasminekim/Desktop/PythonCode/twosum.py",
+		"/Users/jasminekim/Desktop/WebDev/home.js",
+		"/Users/jasminekim/Desktop/WebDev/homestyles.css",
+		"/Users/jasminekim/Desktop/WebDev/home.html",
+		"/Users/jasminekim/Desktop/WebDev/catportfolio.html",
+		"/Users/jasminekim/Desktop/WebDev/portfoilo.html",
+		"/Users/jasminekim/Desktop/WebDev/raw_template.html"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"path": "/Users/jasminekim/Desktop/ip_xv6"
+		}
+	],
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 253.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"trapasm.S"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 173.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

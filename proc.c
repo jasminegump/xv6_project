@@ -7,6 +7,9 @@
 #include "proc.h"
 #include "spinlock.h"
 
+#define DEFAULT_TICKET_HI 10
+#define DEFAULT_TICKET_LO 0
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -19,6 +22,17 @@ extern void forkret(void);
 extern void trapret(void);
 
 static void wakeup1(void *chan);
+
+int typeofscheduler = 0;
+int totalnumtickets = 0;
+
+unsigned long randstate = 1;
+unsigned int
+rand()
+{
+  randstate = randstate * 1664525 + 1013904223;
+  return randstate;
+}
 
 void
 pinit(void)
@@ -149,6 +163,11 @@ userinit(void)
   acquire(&ptable.lock);
 
   p->state = RUNNABLE;
+  
+  totalnumtickets = DEFAULT_TICKET_HI + totalnumtickets;
+  p->procnumtickets_high  = totalnumtickets;
+  p->procnumtickets_low  = DEFAULT_TICKET_LO;
+
 
   release(&ptable.lock);
 }
@@ -221,6 +240,11 @@ fork(void)
   // Initialize system call count to 0
   np->syscall_count = 0;
 
+  np->procnumtickets_low  = totalnumtickets + 1;
+  totalnumtickets = DEFAULT_TICKET_HI + totalnumtickets;
+  np->procnumtickets_high  = totalnumtickets;
+  
+
   return pid;
 }
 
@@ -233,6 +257,9 @@ exit(void)
   struct proc *curproc = myproc();
   struct proc *p;
   int fd;
+
+  // Need to remove tickets from finished process
+  //c->totalnumtickets = c->totalnumtickets - curproc->procnumtickets;
 
   if(curproc == initproc)
     panic("init exiting");
@@ -263,6 +290,7 @@ exit(void)
         wakeup1(initproc);
     }
   }
+
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
@@ -327,34 +355,79 @@ scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
+  int rand_num;
+
   c->proc = 0;
+
   
   for(;;){
-    // Enable interrupts on this processor.
-    sti();
 
-    // Loop over process table looking for process to run.
-    acquire(&ptable.lock);
-    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if(p->state != RUNNABLE)
-        continue;
+        // Enable interrupts on this processor.
+        sti();
 
-      // Switch to chosen process.  It is the process's job
-      // to release ptable.lock and then reacquire it
-      // before jumping back to us.
-      c->proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
+        // Loop over process table looking for process to run.
+        acquire(&ptable.lock);
 
-      swtch(&(c->scheduler), p->context);
-      switchkvm();
+        if(typeofscheduler) // Lottery scheduler
+        {
+          rand_num = rand() % totalnumtickets;
+          //rand_num = 32;
+          for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+            if ((p->procnumtickets_high >= rand_num) && (p->procnumtickets_low <= rand_num))
+            {
+              if(p->state == RUNNABLE)
+              {      
+                p->tick = p->tick + 1;
+                // Switch to chosen process.  It is the process's job
+                // to release ptable.lock and then reacquire it
+                // before jumping back to us.
 
-      // Process is done running for now.
-      // It should have changed its p->state before coming back.
-      c->proc = 0;
-    }
-    release(&ptable.lock);
+                c->proc = p;
+                switchuvm(p);
+                p->state = RUNNING;
 
+                swtch(&(c->scheduler), p->context);
+                switchkvm();
+
+                
+                // Process is done running for now.
+                // It should have changed its p->state before coming back.
+                c->proc = 0;
+              }
+              if(p->state == ZOMBIE)
+              {
+                p-> final_tick = p->tick;
+              }
+            }
+            //cprintf("Random number is: %d\n",  rand_num);       
+
+          }
+          release(&ptable.lock);
+        }
+        else // Round robin
+        {
+          for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+            if(p->state != RUNNABLE)
+              continue;
+
+            // Switch to chosen process.  It is the process's job
+            // to release ptable.lock and then reacquire it
+            // before jumping back to us.
+            c->proc = p;
+            switchuvm(p);
+            p->state = RUNNING;
+
+            swtch(&(c->scheduler), p->context);
+            switchkvm();
+
+
+
+            // Process is done running for now.
+            // It should have changed its p->state before coming back.
+            c->proc = 0;
+          }
+          release(&ptable.lock);
+        }
   }
 }
 
@@ -605,3 +678,33 @@ proccountpages(void)
     }  
   }
 }
+
+void
+proclottery(int tickets)
+{
+
+  struct proc *curproc = myproc();
+  struct proc *p;
+  int delta_p, updated_high;
+
+  acquire(&ptable.lock);
+  curproc->tick = 0;
+  curproc->final_tick = 0;
+
+  curproc->procnumtickets_high = curproc->procnumtickets_low + tickets - 1;
+  updated_high = curproc->procnumtickets_high;
+  for(p = curproc + 1; p < &ptable.proc[NPROC]; p++)
+  {
+    if(p->state != UNUSED)
+    {
+      delta_p = p->procnumtickets_high - p->procnumtickets_low;
+      p->procnumtickets_low = updated_high + 1;
+      p->procnumtickets_high = p->procnumtickets_low + delta_p;
+      updated_high = p->procnumtickets_high;
+    }
+  }
+  totalnumtickets = totalnumtickets + tickets;
+  release(&ptable.lock);
+
+}
+
