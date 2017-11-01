@@ -7,7 +7,6 @@
 #include "mmu.h"
 #include "proc.h"
 
-extern int typeofscheduler;        // 1 - lottery, 2 - stride 
 extern int totalnumtickets;
 
 int
@@ -112,7 +111,6 @@ sys_settickets(void)
   int tickets;
   argint(0, &tickets);
   //tickets = 30;
-  typeofscheduler = 1; // lottery scheduler
   proclottery(tickets);
   return tickets;
 }

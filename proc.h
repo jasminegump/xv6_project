@@ -50,10 +50,10 @@ struct proc {
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
   uint syscall_count;
-  uint procnumtickets_low;
-  uint procnumtickets_high;
+  int procnumtickets_low;
+  int procnumtickets_high;
   uint tick;
-  uint final_tick;
+  uint tickets;
 };
 
 // Process memory is laid out contiguously, low addresses first:

@@ -24,7 +24,8 @@ extern void trapret(void);
 static void wakeup1(void *chan);
 
 int typeofscheduler = 0;
-int totalnumtickets = 0;
+int tottickets = 0;
+int lastendingticket = 0;
 
 unsigned long randstate = 1;
 unsigned int
@@ -126,6 +127,10 @@ found:
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
 
+  p->tickets = 100;
+  p->tick = 0;
+  p->procnumtickets_low = 0;
+  p->procnumtickets_high = 0;
   return p;
 }
 
@@ -163,12 +168,12 @@ userinit(void)
   acquire(&ptable.lock);
 
   p->state = RUNNABLE;
+
+  p->tickets = 1;
+
+  //p->procnumtickets_low  = lastendingticket + 1;
+  //p->procnumtickets_high  = p->procnumtickets_low + p->tickets;
   
-  totalnumtickets = DEFAULT_TICKET_HI + totalnumtickets;
-  p->procnumtickets_high  = totalnumtickets;
-  p->procnumtickets_low  = DEFAULT_TICKET_LO;
-
-
   release(&ptable.lock);
 }
 
@@ -240,9 +245,9 @@ fork(void)
   // Initialize system call count to 0
   np->syscall_count = 0;
 
-  np->procnumtickets_low  = totalnumtickets + 1;
-  totalnumtickets = DEFAULT_TICKET_HI + totalnumtickets;
-  np->procnumtickets_high  = totalnumtickets;
+
+
+  //tottickets = (np->procnumtickets_high - np->procnumtickets_low) + tottickets;
   
 
   return pid;
@@ -355,64 +360,113 @@ scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
-  int rand_num;
+  int winner;
+  //int tottickets;
+  int low_bound_ticket;
 
   c->proc = 0;
-
+  low_bound_ticket = 0;
   
-  for(;;){
+  for(;;)
+  {
 
-        // Enable interrupts on this processor.
-        sti();
+    // Enable interrupts on this processor.
+    sti();
 
-        // Loop over process table looking for process to run.
-        acquire(&ptable.lock);
+    // Loop over process table looking for process to run.
+    acquire(&ptable.lock);
+    tottickets = 0;
+    low_bound_ticket = 0;
 
-        if(typeofscheduler) // Lottery scheduler
+
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    { 
+      if((p->state == RUNNABLE) || (p->state == RUNNING))
+      {
+        /*if (p->state == RUNNING)
         {
-          rand_num = rand() % totalnumtickets;
-          //rand_num = 32;
-          for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-            if ((p->procnumtickets_high >= rand_num) && (p->procnumtickets_low <= rand_num))
-            {
-              if(p->state == RUNNABLE)
-              {      
-                p->tick = p->tick + 1;
-                // Switch to chosen process.  It is the process's job
-                // to release ptable.lock and then reacquire it
-                // before jumping back to us.
+          p->state = RUNNABLE;
+        }*/
+        p->procnumtickets_low = low_bound_ticket;
+        p->procnumtickets_high = p->procnumtickets_low  + p->tickets;
+        tottickets = tottickets + p->tickets;
+        low_bound_ticket = p->procnumtickets_high + 1;
+      }
+    }
 
-                c->proc = p;
-                switchuvm(p);
-                p->state = RUNNING;
+    if (tottickets > 0)
+    {
+      winner = (rand() % (tottickets + 1));
 
-                swtch(&(c->scheduler), p->context);
-                switchkvm();
+      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+      {
+        if((p->state != RUNNABLE) && (p->state != RUNNING))
+          continue;
+        if ((p->procnumtickets_high >= winner) && (p->procnumtickets_low <= winner))
+        {
+          p->tick = p->tick + 1;
 
-                
-                // Process is done running for now.
-                // It should have changed its p->state before coming back.
-                c->proc = 0;
-              }
-              if(p->state == ZOMBIE)
-              {
-                p-> final_tick = p->tick;
-              }
-            }
-            //cprintf("Random number is: %d\n",  rand_num);       
+          // Switch to chosen process.  It is the process's job
+          // to release ptable.lock and then reacquire it
+          // before jumping back to us.
 
+          if (p->state != RUNNING)
+          {
+            c->proc = p;
+            switchuvm(p);
+            p->state = RUNNING;
+
+            swtch(&(c->scheduler), p->context);
+            switchkvm();
+          
+            // Process is done running for now.
+            // It should have changed its p->state before coming back.
+            c->proc = 0;
           }
-          release(&ptable.lock);
         }
-        else // Round robin
-        {
-          for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-            if(p->state != RUNNABLE)
-              continue;
+      }
 
+    }
+
+
+
+
+
+
+/*
+    low_bound_ticket = 0;
+    tottickets = 1;
+
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    {
+      if((p->state == RUNNABLE) || (p->state == RUNNING))
+      {
+        p->procnumtickets_low = low_bound_ticket;
+        p->procnumtickets_high = p->procnumtickets_low  + p->tickets;
+        tottickets = (p->procnumtickets_high - p->procnumtickets_low) + tottickets;
+        low_bound_ticket = p->procnumtickets_high + 1;
+      }
+      else
+      {
+        p->procnumtickets_low = 0;
+        p->procnumtickets_high = 0;
+      }
+      //tottickets = p->tickets + tottickets;
+    }
+
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    {
+      if(p->state == RUNNABLE)
+      {
+        winner = (rand() % (tottickets));
+        if ((p->procnumtickets_high >= winner) && (p->procnumtickets_low <= winner))
+        {
+       
+            p->tick = p->tick + 1;
             // Switch to chosen process.  It is the process's job
             // to release ptable.lock and then reacquire it
             // before jumping back to us.
+
             c->proc = p;
             switchuvm(p);
             p->state = RUNNING;
@@ -420,15 +474,21 @@ scheduler(void)
             swtch(&(c->scheduler), p->context);
             switchkvm();
 
-
-
+            
             // Process is done running for now.
             // It should have changed its p->state before coming back.
             c->proc = 0;
-          }
-          release(&ptable.lock);
+          }  
         }
+    }
+*/
+
+
+
+    release(&ptable.lock);
+
   }
+
 }
 
 // Enter scheduler.  Must hold only ptable.lock
@@ -684,10 +744,16 @@ proclottery(int tickets)
 {
 
   struct proc *curproc = myproc();
-  struct proc *p;
-  int delta_p, updated_high;
-
   acquire(&ptable.lock);
+  curproc->tickets = tickets;
+  curproc->tick = 0;
+  release(&ptable.lock);
+
+  //struct proc *p;
+  //int delta_p, updated_high;
+
+  //acquire(&ptable.lock);
+  /*
   curproc->tick = 0;
   curproc->final_tick = 0;
 
@@ -702,9 +768,8 @@ proclottery(int tickets)
       p->procnumtickets_high = p->procnumtickets_low + delta_p;
       updated_high = p->procnumtickets_high;
     }
-  }
-  totalnumtickets = totalnumtickets + tickets;
-  release(&ptable.lock);
+  }*/
+  //release(&ptable.lock);
 
 }
 

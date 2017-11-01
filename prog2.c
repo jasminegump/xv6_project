@@ -6,7 +6,7 @@
 int
 main(int argc, char *argv[]) {
 	int i, k;
-	const int loop= 5000;
+	const int loop= 430000;
 	settickets(20);
 	for(i = 0; i<loop; i++)
 	{
