@@ -6,8 +6,8 @@
 int
 main(int argc, char *argv[]) {
 	int i, k;
-	const int loop= 430000;
-	settickets(10);
+	const int loop= 43000;
+	settickets(10, 3);
 	for(i = 0; i<loop; i++)
 	{
 		asm("nop"); //in order to prevent the compiler from optimizing the for loop

@@ -95,22 +95,37 @@ sys_uptime(void)
 int
 sys_info(void)
 {
-  int i;
-  i = 1;
-  procdump();
-  proccount();
-  syscount();
-  proccountpages();
-
-  return i;
+  int input;
+  int output;
+  argint(0, &input);
+  if (input == 1)
+  {
+    output = proccount();
+  }
+  else if (input == 2)
+  {
+    output = procsyscallcount();
+  }
+  /*
+  else if (input == 3)
+  {
+    output = proccountpages();
+  }*/
+  else
+  {
+    return -1;
+  }
+  return output;
 }
 
 int
 sys_settickets(void)
 {
   int tickets;
+  int process_num;
   argint(0, &tickets);
-  proclottery(tickets);
+  argint(1, &process_num);
+  proclottery(tickets, process_num);
   return tickets;
 }
 
@@ -118,8 +133,10 @@ int
 sys_setstridetickets(void)
 {
   int tickets;
+  int process_num;
   argint(0, &tickets);
+  argint(1, &process_num);
   //tickets = 30;
-  procstridescheduler(tickets);
+  procstridescheduler(tickets, process_num);
   return tickets;
 }

@@ -24,8 +24,8 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 int info(int);
-int settickets(int);
-int setstridetickets(int);
+int settickets(int, int);
+int setstridetickets(int, int);
 
 
 // ulib.c

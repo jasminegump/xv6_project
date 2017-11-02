@@ -6,7 +6,27 @@
 int
 main(void)
 {
+	int output, i;
 	printf(1, "Jasmine's first user program on xv6.\n");
-	info(1);
+	for(i = 1; i < 4; i ++){
+		output = info(i);
+		if (i == 1)
+		{
+			printf(1, "Num of processes in system: %d\n", output);
+		}
+		else if (i == 2)
+		{
+			printf(1, "Num of system calls for this process: %d\n", output);	
+		}/*
+		else if(i == 3)
+		{
+			printf(1, "Num of memory pages of this process: %d\n", output);
+		}*/
+		else
+		{
+			printf(1, "INVALID INPUT\n");
+		}
+
+	}
 	exit();
 }

@@ -59,6 +59,10 @@ struct proc {
   uint tick;
   uint tickets;
 
+  // Used for both lottery and stride
+  uint count_me_ticks;
+  uint prog_num;
+
   // Added for part 3, stride scheduler
   int stride_tickets;
   int stride_value;

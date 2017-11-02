@@ -28,6 +28,7 @@ static void wakeup1(void *chan);
 int typeofscheduler = 0;
 int tottickets = 0;
 int lastendingticket = 0;
+int end_print = 1;
 
 unsigned long randstate = 1;
 unsigned int
@@ -179,6 +180,7 @@ userinit(void)
 
   p->tickets = 1;
   p->stride_tickets = 1;
+  p->syscall_count = 0;
   
   release(&ptable.lock);
 }
@@ -297,6 +299,36 @@ exit(void)
     }
   }
 
+  #if LOTTERY_SCHEDULER
+    if((curproc->count_me_ticks == 1) && (end_print == 1))
+    {
+      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+      {
+        if(p->count_me_ticks)
+        {
+          cprintf("prog%d: %d\n", p->prog_num, p->tick); 
+        }
+      }
+      end_print = 0;
+    }
+
+  #endif
+
+  #if STRIDE_SCHEDULER
+  if((curproc->count_me_ticks == 1) && (end_print == 1))
+  {
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    {
+      if(p->count_me_ticks)
+      {
+        cprintf("prog%d: %d\n", p->prog_num, p->stride_ticks); 
+      }
+    }
+    end_print = 0;
+  }
+  #endif
+
+
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
   sched();
@@ -360,16 +392,20 @@ scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
+  /*
   int winner;
   int low_bound_ticket;
+
   int stride_num_tickets;
   int current_min;
   stride_num_tickets = 10000;
-
+  */
   c->proc = 0;
 
-  if (LOTTERY_SCHEDULER)
-  {
+  #if (LOTTERY_SCHEDULER)
+    int winner;
+    int low_bound_ticket;
+    c->proc = 0;
     low_bound_ticket = 0;
   
     for(;;)
@@ -429,10 +465,13 @@ scheduler(void)
       }
       release(&ptable.lock);
     }
-  }
+  #endif
 
-  if (STRIDE_SCHEDULER)
-  {
+  #if (STRIDE_SCHEDULER)
+  int stride_num_tickets;
+  int current_min;
+  stride_num_tickets = 10000;
+  c->proc = 0;
   current_min = 1;  
   
   for(;;){
@@ -500,9 +539,10 @@ scheduler(void)
       }
     }
     release(&ptable.lock);
-    }
   } 
+  #endif
 }
+
 
 // Enter scheduler.  Must hold only ptable.lock
 // and have changed proc->state. Saves and restores
@@ -682,7 +722,7 @@ procdump(void)
   }
 }
 
-void
+int
 proccount(void)
 {
   static char *states[] = {
@@ -706,31 +746,24 @@ proccount(void)
      
     }
   }
-  cprintf("Number of processes: %d\n", numprocess);
+  //cprintf("Number of processes: %d\n", numprocess);
+  return numprocess;
 }
 
-void
-syscount(void)
+int
+procsyscallcount(void)
 {
-  static char *states[] = {
-  [UNUSED]    "unused",
-  [EMBRYO]    "embryo",
-  [SLEEPING]  "sleep ",
-  [RUNNABLE]  "runble",
-  [RUNNING]   "run   ",
-  [ZOMBIE]    "zombie"
-  };
   struct proc *p;
+  int sys_call_count;
+
+  sys_call_count = 0;
 
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->state == UNUSED)
       continue;
-    if(p->state >= 0 && p->state < NELEM(states) && states[p->state])
-    {
-      cprintf("Number of syscalls for procedure: %d %d\n", p->pid, p->syscall_count);
-    }
+    sys_call_count = p->syscall_count + sys_call_count;
   }
-
+  return sys_call_count;
 }
 
 void
@@ -753,18 +786,20 @@ proccountpages(void)
 }
 
 void
-proclottery(int tickets)
+proclottery(int tickets, int process_num)
 {
 
   struct proc *curproc = myproc();
   acquire(&ptable.lock);
   curproc->tickets = tickets;
   curproc->tick = 0;
+  curproc->count_me_ticks = 1;
+  curproc->prog_num = process_num;
   release(&ptable.lock);
 }
 
 void
-procstridescheduler(int stride_tickets)
+procstridescheduler(int stride_tickets, int process_num)
 {
 
   struct proc *curproc = myproc();
@@ -772,6 +807,8 @@ procstridescheduler(int stride_tickets)
   curproc->stride_tickets = stride_tickets;
   curproc->stride_pass = 0;
   curproc->stride_ticks = 0;
+  curproc->count_me_ticks = 1;
+  curproc->prog_num = process_num;
   release(&ptable.lock);
 }
 
