@@ -7,8 +7,10 @@
 #include "proc.h"
 #include "spinlock.h"
 
-#define DEFAULT_TICKET_HI 10
-#define DEFAULT_TICKET_LO 0
+// My scheduler #defines that I change on compile time
+#define STRIDE_SCHEDULER 1
+#define LOTTERY_SCHEDULER 0
+
 
 struct {
   struct spinlock lock;
@@ -127,10 +129,16 @@ found:
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
 
+  // For part 1
   p->tickets = 100;
   p->tick = 0;
   p->procnumtickets_low = 0;
   p->procnumtickets_high = 0;
+
+  // For part 2
+  // Set default
+  p->stride_tickets = 1;
+
   return p;
 }
 
@@ -170,9 +178,7 @@ userinit(void)
   p->state = RUNNABLE;
 
   p->tickets = 1;
-
-  //p->procnumtickets_low  = lastendingticket + 1;
-  //p->procnumtickets_high  = p->procnumtickets_low + p->tickets;
+  p->stride_tickets = 1;
   
   release(&ptable.lock);
 }
@@ -245,11 +251,6 @@ fork(void)
   // Initialize system call count to 0
   np->syscall_count = 0;
 
-
-
-  //tottickets = (np->procnumtickets_high - np->procnumtickets_low) + tottickets;
-  
-
   return pid;
 }
 
@@ -295,7 +296,6 @@ exit(void)
         wakeup1(initproc);
     }
   }
-
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
@@ -361,134 +361,147 @@ scheduler(void)
   struct proc *p;
   struct cpu *c = mycpu();
   int winner;
-  //int tottickets;
   int low_bound_ticket;
+  int stride_num_tickets;
+  int current_min;
+  stride_num_tickets = 10000;
 
   c->proc = 0;
-  low_bound_ticket = 0;
-  
-  for(;;)
-  {
 
+  if (LOTTERY_SCHEDULER)
+  {
+    low_bound_ticket = 0;
+  
+    for(;;)
+    {
+
+      // Enable interrupts on this processor.
+      sti();
+
+      // Loop over process table looking for process to run.
+      acquire(&ptable.lock);
+      tottickets = 0;
+      low_bound_ticket = 0;
+
+      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+      { 
+        if((p->state == RUNNABLE) || (p->state == RUNNING))
+        {
+          p->procnumtickets_low = low_bound_ticket;
+          p->procnumtickets_high = p->procnumtickets_low  + p->tickets;
+          tottickets = tottickets + p->tickets;
+          low_bound_ticket = p->procnumtickets_high + 1;
+        }
+      }
+
+      if (tottickets > 0)
+      {
+        winner = (rand() % (tottickets + 1));
+
+        for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+        {
+          if((p->state != RUNNABLE) && (p->state != RUNNING))
+            continue;
+          if ((p->procnumtickets_high >= winner) && (p->procnumtickets_low <= winner))
+          {
+            p->tick = p->tick + 1;
+
+            // Switch to chosen process.  It is the process's job
+            // to release ptable.lock and then reacquire it
+            // before jumping back to us.
+
+            if (p->state != RUNNING)
+            {
+              c->proc = p;
+              switchuvm(p);
+              p->state = RUNNING;
+
+              swtch(&(c->scheduler), p->context);
+              switchkvm();
+            
+              // Process is done running for now.
+              // It should have changed its p->state before coming back.
+              c->proc = 0;
+            }
+          }
+        }
+
+      }
+      release(&ptable.lock);
+    }
+  }
+
+  if (STRIDE_SCHEDULER)
+  {
+  current_min = 1;  
+  
+  for(;;){
     // Enable interrupts on this processor.
     sti();
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
-    tottickets = 0;
-    low_bound_ticket = 0;
-
 
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    { 
-      if((p->state == RUNNABLE) || (p->state == RUNNING))
-      {
-        /*if (p->state == RUNNING)
-        {
-          p->state = RUNNABLE;
-        }*/
-        p->procnumtickets_low = low_bound_ticket;
-        p->procnumtickets_high = p->procnumtickets_low  + p->tickets;
-        tottickets = tottickets + p->tickets;
-        low_bound_ticket = p->procnumtickets_high + 1;
-      }
-    }
-
-    if (tottickets > 0)
     {
-      winner = (rand() % (tottickets + 1));
+      p->stride_value = 0;
 
-      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+      if (p->stride_tickets > 1)
       {
-        if((p->state != RUNNABLE) && (p->state != RUNNING))
-          continue;
-        if ((p->procnumtickets_high >= winner) && (p->procnumtickets_low <= winner))
+        if((p->state == RUNNABLE) || (p->state == RUNNING))
         {
-          p->tick = p->tick + 1;
+
+          p->stride_value = stride_num_tickets / p->stride_tickets;
+          //p->stride_run = 1;
+
+          if (current_min >= p->stride_pass)
+          {
+            p->stride_pass = p->stride_value + p->stride_pass;
+            p->stride_ticks = p->stride_ticks + 1;
+            current_min = p->stride_pass;
+
+            // Switch processes
+            if (p->state != RUNNING)
+            {
+              c->proc = p;
+              switchuvm(p);
+              p->state = RUNNING;
+
+              swtch(&(c->scheduler), p->context);
+              switchkvm();
+
+              // Process is done running for now.
+              // It should have changed its p->state before coming back.
+              c->proc = 0;
+            }
+          }
+
+        }
+
+      }
+      else
+      {
+          if(p->state != RUNNABLE)
+            continue;
 
           // Switch to chosen process.  It is the process's job
           // to release ptable.lock and then reacquire it
           // before jumping back to us.
+          c->proc = p;
+          switchuvm(p);
+          p->state = RUNNING;
 
-          if (p->state != RUNNING)
-          {
-            c->proc = p;
-            switchuvm(p);
-            p->state = RUNNING;
+          swtch(&(c->scheduler), p->context);
+          switchkvm();
 
-            swtch(&(c->scheduler), p->context);
-            switchkvm();
-          
-            // Process is done running for now.
-            // It should have changed its p->state before coming back.
-            c->proc = 0;
-          }
-        }
+          // Process is done running for now.
+          // It should have changed its p->state before coming back.
+          c->proc = 0;
       }
-
     }
-
-
-
-
-
-
-/*
-    low_bound_ticket = 0;
-    tottickets = 1;
-
-    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    {
-      if((p->state == RUNNABLE) || (p->state == RUNNING))
-      {
-        p->procnumtickets_low = low_bound_ticket;
-        p->procnumtickets_high = p->procnumtickets_low  + p->tickets;
-        tottickets = (p->procnumtickets_high - p->procnumtickets_low) + tottickets;
-        low_bound_ticket = p->procnumtickets_high + 1;
-      }
-      else
-      {
-        p->procnumtickets_low = 0;
-        p->procnumtickets_high = 0;
-      }
-      //tottickets = p->tickets + tottickets;
-    }
-
-    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    {
-      if(p->state == RUNNABLE)
-      {
-        winner = (rand() % (tottickets));
-        if ((p->procnumtickets_high >= winner) && (p->procnumtickets_low <= winner))
-        {
-       
-            p->tick = p->tick + 1;
-            // Switch to chosen process.  It is the process's job
-            // to release ptable.lock and then reacquire it
-            // before jumping back to us.
-
-            c->proc = p;
-            switchuvm(p);
-            p->state = RUNNING;
-
-            swtch(&(c->scheduler), p->context);
-            switchkvm();
-
-            
-            // Process is done running for now.
-            // It should have changed its p->state before coming back.
-            c->proc = 0;
-          }  
-        }
-    }
-*/
-
-
-
     release(&ptable.lock);
-
-  }
-
+    }
+  } 
 }
 
 // Enter scheduler.  Must hold only ptable.lock
@@ -748,28 +761,17 @@ proclottery(int tickets)
   curproc->tickets = tickets;
   curproc->tick = 0;
   release(&ptable.lock);
+}
 
-  //struct proc *p;
-  //int delta_p, updated_high;
+void
+procstridescheduler(int stride_tickets)
+{
 
-  //acquire(&ptable.lock);
-  /*
-  curproc->tick = 0;
-  curproc->final_tick = 0;
-
-  curproc->procnumtickets_high = curproc->procnumtickets_low + tickets - 1;
-  updated_high = curproc->procnumtickets_high;
-  for(p = curproc + 1; p < &ptable.proc[NPROC]; p++)
-  {
-    if(p->state != UNUSED)
-    {
-      delta_p = p->procnumtickets_high - p->procnumtickets_low;
-      p->procnumtickets_low = updated_high + 1;
-      p->procnumtickets_high = p->procnumtickets_low + delta_p;
-      updated_high = p->procnumtickets_high;
-    }
-  }*/
-  //release(&ptable.lock);
-
+  struct proc *curproc = myproc();
+  acquire(&ptable.lock);
+  curproc->stride_tickets = stride_tickets;
+  curproc->stride_pass = 0;
+  curproc->stride_ticks = 0;
+  release(&ptable.lock);
 }
 

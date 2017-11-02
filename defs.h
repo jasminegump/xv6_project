@@ -115,6 +115,7 @@ void            procdump(void);
 void            proccount(void);
 void            syscount(void);
 void            proclottery(int);
+void            procstridescheduler(int);
 void            proccountpages(void);
 void            scheduler(void) __attribute__((noreturn));
 void            sched(void);

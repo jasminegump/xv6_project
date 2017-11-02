@@ -110,7 +110,16 @@ sys_settickets(void)
 {
   int tickets;
   argint(0, &tickets);
-  //tickets = 30;
   proclottery(tickets);
+  return tickets;
+}
+
+int
+sys_setstridetickets(void)
+{
+  int tickets;
+  argint(0, &tickets);
+  //tickets = 30;
+  procstridescheduler(tickets);
   return tickets;
 }
