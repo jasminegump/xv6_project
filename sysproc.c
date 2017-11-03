@@ -7,7 +7,6 @@
 #include "mmu.h"
 #include "proc.h"
 
-extern int totalnumtickets;
 
 int
 sys_fork(void)
@@ -92,6 +91,10 @@ sys_uptime(void)
   return xticks;
 }
 
+// JK
+// Info System Call Here
+// Takes one int param with value of 1, 2, 3
+// Calls appropriate process call
 int
 sys_info(void)
 {
@@ -106,11 +109,11 @@ sys_info(void)
   {
     output = procsyscallcount();
   }
-  /*
+  
   else if (input == 3)
   {
     output = proccountpages();
-  }*/
+  }
   else
   {
     return -1;
@@ -118,6 +121,9 @@ sys_info(void)
   return output;
 }
 
+// JK
+// Part 2 - Lottery Scheduler
+// Passes program tickets to process
 int
 sys_settickets(void)
 {
@@ -129,6 +135,9 @@ sys_settickets(void)
   return tickets;
 }
 
+// JK
+// Part 2 - Stride Scheduler
+// Passes program tickets to process
 int
 sys_setstridetickets(void)
 {
@@ -136,7 +145,6 @@ sys_setstridetickets(void)
   int process_num;
   argint(0, &tickets);
   argint(1, &process_num);
-  //tickets = 30;
   procstridescheduler(tickets, process_num);
   return tickets;
 }

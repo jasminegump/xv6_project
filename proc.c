@@ -7,9 +7,11 @@
 #include "proc.h"
 #include "spinlock.h"
 
+// JK
 // My scheduler #defines that I change on compile time
 #define STRIDE_SCHEDULER 1
 #define LOTTERY_SCHEDULER 0
+#define ROUND_ROBIN_SCHEDULER 0
 
 
 struct {
@@ -25,17 +27,22 @@ extern void trapret(void);
 
 static void wakeup1(void *chan);
 
+// JK
+// My variables
 int typeofscheduler = 0;
 int tottickets = 0;
 int lastendingticket = 0;
 int end_print = 1;
+int global_scheduler_tick;
 
-unsigned long randstate = 1;
-unsigned int
-rand()
+// JK
+// Retrieved code for random number generator from here:
+// https://stackoverflow.com/questions/822323/how-to-generate-a-random-number-in-c
+static unsigned long int next = 1;
+int rand(void)  /* RAND_MAX assumed to be 32767. */
 {
-  randstate = randstate * 1664525 + 1013904223;
-  return randstate;
+    next = next * 1103515245 + 12345;
+    return (unsigned)(next/65536) % 32768;
 }
 
 void
@@ -130,14 +137,15 @@ found:
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
 
-  // For part 1
+  // JK
+  // For lottery scheduler, must initialize when allocating process
   p->tickets = 100;
   p->tick = 0;
   p->procnumtickets_low = 0;
   p->procnumtickets_high = 0;
 
-  // For part 2
-  // Set default
+  // JK
+  // For stride scheduler, must initialize when allocating process
   p->stride_tickets = 1;
 
   return p;
@@ -178,6 +186,10 @@ userinit(void)
 
   p->state = RUNNABLE;
 
+
+  // JK
+  // For lottery and stride scheduler, must initialize when allocating process
+  // Also for system call count, must initialize for new process
   p->tickets = 1;
   p->stride_tickets = 1;
   p->syscall_count = 0;
@@ -250,7 +262,8 @@ fork(void)
 
   release(&ptable.lock);
 
-  // Initialize system call count to 0
+  // JK
+  // For system call count, must initialize for new process
   np->syscall_count = 0;
 
   return pid;
@@ -265,9 +278,6 @@ exit(void)
   struct proc *curproc = myproc();
   struct proc *p;
   int fd;
-
-  // Need to remove tickets from finished process
-  //c->totalnumtickets = c->totalnumtickets - curproc->procnumtickets;
 
   if(curproc == initproc)
     panic("init exiting");
@@ -299,6 +309,11 @@ exit(void)
     }
   }
 
+
+  // JK
+  // Following sections are for lottery and stride scheduler
+  // It is in order to print out the ticks ratio when the first process
+  // terminates.
   #if LOTTERY_SCHEDULER
     if((curproc->count_me_ticks == 1) && (end_print == 1))
     {
@@ -306,14 +321,12 @@ exit(void)
       {
         if(p->count_me_ticks)
         {
-          cprintf("prog%d: %d\n", p->prog_num, p->tick); 
+          cprintf("prog%d with %d tickets: %d\n", p->prog_num, p->tickets, p->tick); 
         }
       }
       end_print = 0;
     }
-
   #endif
-
   #if STRIDE_SCHEDULER
   if((curproc->count_me_ticks == 1) && (end_print == 1))
   {
@@ -321,13 +334,12 @@ exit(void)
     {
       if(p->count_me_ticks)
       {
-        cprintf("prog%d: %d\n", p->prog_num, p->stride_ticks); 
+        cprintf("prog%d with %d tickets: %d\n", p->prog_num, p->stride_tickets, p->stride_ticks); 
       }
     }
     end_print = 0;
   }
   #endif
-
 
   // Jump into the scheduler, never to return.
   curproc->state = ZOMBIE;
@@ -392,16 +404,45 @@ scheduler(void)
 {
   struct proc *p;
   struct cpu *c = mycpu();
-  /*
-  int winner;
-  int low_bound_ticket;
 
-  int stride_num_tickets;
-  int current_min;
-  stride_num_tickets = 10000;
-  */
+  global_scheduler_tick = 0;
+
   c->proc = 0;
 
+  // JK
+  // The following is the original round robin scheduler
+  #if (ROUND_ROBIN_SCHEDULER)
+    for(;;)
+    {
+      // Enable interrupts on this processor.
+      sti();
+
+      // Loop over process table looking for process to run.
+      acquire(&ptable.lock);
+      for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+        if(p->state != RUNNABLE)
+          continue;
+
+        // Switch to chosen process.  It is the process's job
+        // to release ptable.lock and then reacquire it
+        // before jumping back to us.
+        c->proc = p;
+        switchuvm(p);
+        p->state = RUNNING;
+
+        swtch(&(c->scheduler), p->context);
+        switchkvm();
+
+        // Process is done running for now.
+        // It should have changed its p->state before coming back.
+        c->proc = 0;
+      }
+      release(&ptable.lock);
+    }
+  #endif
+
+  // JK
+  // The following is the lottery scheduler
   #if (LOTTERY_SCHEDULER)
     int winner;
     int low_bound_ticket;
@@ -410,17 +451,22 @@ scheduler(void)
   
     for(;;)
     {
-
       // Enable interrupts on this processor.
       sti();
 
       // Loop over process table looking for process to run.
       acquire(&ptable.lock);
+
+      // This was used for the evaluation of the two scheduler phase
+      global_scheduler_tick = global_scheduler_tick + 1;
+
       tottickets = 0;
       low_bound_ticket = 0;
 
+      // Go through all runnable processes and re-arrange lower and upper ticket bounds
+      // in order to generate random number
       for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-      { 
+      {
         if((p->state == RUNNABLE) || (p->state == RUNNING))
         {
           p->procnumtickets_low = low_bound_ticket;
@@ -432,20 +478,22 @@ scheduler(void)
 
       if (tottickets > 0)
       {
+        // Calculate winner
         winner = (rand() % (tottickets + 1));
 
+        // Go through processes looking for winner
         for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
         {
           if((p->state != RUNNABLE) && (p->state != RUNNING))
             continue;
           if ((p->procnumtickets_high >= winner) && (p->procnumtickets_low <= winner))
           {
+            // Increment count if selected winner
             p->tick = p->tick + 1;
 
             // Switch to chosen process.  It is the process's job
             // to release ptable.lock and then reacquire it
             // before jumping back to us.
-
             if (p->state != RUNNING)
             {
               c->proc = p;
@@ -467,6 +515,8 @@ scheduler(void)
     }
   #endif
 
+  // JK
+  // The following is the stride scheduler
   #if (STRIDE_SCHEDULER)
   int stride_num_tickets;
   int current_min;
@@ -481,6 +531,12 @@ scheduler(void)
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
 
+    // This was used for the evaluation of the two scheduler phase
+    global_scheduler_tick = global_scheduler_tick + 1;
+
+    // Go through process list looking for processes that are ready to run in stride
+    // p->stride_tickets gets set when running system call for user program that uses stride scheduler
+    
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
     {
       p->stride_value = 0;
@@ -489,12 +545,13 @@ scheduler(void)
       {
         if((p->state == RUNNABLE) || (p->state == RUNNING))
         {
-
+          // Calculate stride value
           p->stride_value = stride_num_tickets / p->stride_tickets;
-          //p->stride_run = 1;
 
+          // Look for minimum stride pass value to run
           if (current_min >= p->stride_pass)
           {
+            // If we're in here, we found the lowest stride pass value and process to run
             p->stride_pass = p->stride_value + p->stride_pass;
             p->stride_ticks = p->stride_ticks + 1;
             current_min = p->stride_pass;
@@ -518,6 +575,8 @@ scheduler(void)
         }
 
       }
+      // Otherwise run in normal round robin mode
+      // This is so the init and sh can come up in round robin mode
       else
       {
           if(p->state != RUNNABLE)
@@ -722,6 +781,11 @@ procdump(void)
   }
 }
 
+// JK
+// Part 1.1 - Count number of processes in system
+// Goes through ptable and looks for any state that is not UNUSED and counts it
+// output - int numprocess
+//
 int
 proccount(void)
 {
@@ -746,27 +810,26 @@ proccount(void)
      
     }
   }
-  //cprintf("Number of processes: %d\n", numprocess);
   return numprocess;
 }
 
+// JK
+// Part 1.2 - Count total number of system calls a process has done so far
+// Retrieves current process' system call count
+//
 int
 procsyscallcount(void)
 {
-  struct proc *p;
-  int sys_call_count;
-
-  sys_call_count = 0;
-
-  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-    if(p->state == UNUSED)
-      continue;
-    sys_call_count = p->syscall_count + sys_call_count;
-  }
-  return sys_call_count;
+  struct proc *curproc = myproc();
+  return curproc -> syscall_count;
 }
 
-void
+// JK
+// Part 1.3 - Number of memory pages the current process is using
+// Goes through looking for whatever current process is running and calculates 
+// the page by dividing the process' size by page size
+//
+int
 proccountpages(void)
 {
   struct proc *p;
@@ -780,17 +843,21 @@ proccountpages(void)
       {
         numpages = numpages + 1;
       }
-      cprintf("Number of pages for procedure: %d %d\n", p->pid, numpages); 
     }  
   }
+  return numpages;
 }
 
+// JK
+// Part 2 - Lottery Scheduler
+// Sets up tickets for current process and its proc struct values needed for scheduler
 void
 proclottery(int tickets, int process_num)
 {
 
   struct proc *curproc = myproc();
   acquire(&ptable.lock);
+  global_scheduler_tick = 0;
   curproc->tickets = tickets;
   curproc->tick = 0;
   curproc->count_me_ticks = 1;
@@ -798,12 +865,16 @@ proclottery(int tickets, int process_num)
   release(&ptable.lock);
 }
 
+// JK
+// Part 2 - Stride Scheduler
+// Sets up tickets for current process and its proc struct values needed for scheduler
 void
 procstridescheduler(int stride_tickets, int process_num)
 {
 
   struct proc *curproc = myproc();
   acquire(&ptable.lock);
+  global_scheduler_tick = 0;
   curproc->stride_tickets = stride_tickets;
   curproc->stride_pass = 0;
   curproc->stride_ticks = 0;
@@ -811,4 +882,5 @@ procstridescheduler(int stride_tickets, int process_num)
   curproc->prog_num = process_num;
   release(&ptable.lock);
 }
+
 

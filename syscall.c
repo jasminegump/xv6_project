@@ -143,6 +143,8 @@ syscall(void)
   num = curproc->tf->eax;
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     curproc->tf->eax = syscalls[num]();
+    // JK
+    // Part 1.2 This is where I increment a current process' system call count
     curproc->syscall_count = curproc->syscall_count + 1;
   } else {
     cprintf("%d %s: unknown sys call %d\n",

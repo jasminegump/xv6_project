@@ -111,12 +111,16 @@ int             kill(int);
 struct cpu*     mycpu(void);
 struct proc*    myproc();
 void            pinit(void);
+
+// JK
+// Here are all my new process functions
 void            procdump(void);
 int             proccount(void);
 int             procsyscallcount(void);
 void            proclottery(int, int);
 void            procstridescheduler(int, int);
-void            proccountpages(void);
+int             proccountpages(void);
+
 void            scheduler(void) __attribute__((noreturn));
 void            sched(void);
 void            setproc(struct proc*);

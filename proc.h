@@ -50,30 +50,29 @@ struct proc {
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
 
+  // JK
   // Added for part 1
   uint syscall_count;
 
+  // JK
   // Added for part 2, lottery scheduler
   int procnumtickets_low;
   int procnumtickets_high;
   uint tick;
   uint tickets;
 
+  // JK
   // Used for both lottery and stride
   uint count_me_ticks;
   uint prog_num;
 
+  // JK
   // Added for part 3, stride scheduler
   int stride_tickets;
   int stride_value;
   int stride_pass;
   int stride_run;
   int stride_ticks;
-};
 
-// Process memory is laid out contiguously, low addresses first:
-//   text
-//   original data and bss
-//   fixed-size stack
-//   expandable heap
+};
 
